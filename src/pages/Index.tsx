@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { PageTransition } from '@/components/ui/motion-wrapper';
 import { Header } from '@/components/Header';
 import { Hero } from '@/components/Hero';
 import { Features } from '@/components/Features';
 import { HowItWorks } from '@/components/HowItWorks';
-import { SocialProof } from '@/components/SocialProof';
+import { BuildSkillsSection } from '@/components/BuildSkillsSection';
 import { Footer } from '@/components/Footer';
 import { AuthModal } from '@/components/AuthModal';
 import { DemoModal } from '@/components/DemoModal';
@@ -28,6 +28,13 @@ const Index = () => {
     setIsDemoModalOpen(true);
   };
 
+  // Listen for demo events from BuildSkillsSection
+  useEffect(() => {
+    const handleOpenDemo = () => setIsDemoModalOpen(true);
+    window.addEventListener('openDemo', handleOpenDemo);
+    return () => window.removeEventListener('openDemo', handleOpenDemo);
+  }, []);
+
   return (
     <PageTransition>
       <div className="min-h-screen bg-background">
@@ -40,7 +47,7 @@ const Index = () => {
           />
           <Features />
           <HowItWorks />
-          <SocialProof />
+          <BuildSkillsSection />
         </main>
 
         <Footer />
